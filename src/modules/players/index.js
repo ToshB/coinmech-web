@@ -17,9 +17,8 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         items: action.players
-      }
+      };
     default:
       return state;
   }
 }
-
