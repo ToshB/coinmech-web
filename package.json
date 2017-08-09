@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:4000",
+  "engines": {
+    "node": "8.2.1"
+  },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "bulma": "^0.5.1",
