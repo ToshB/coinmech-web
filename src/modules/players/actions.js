@@ -19,7 +19,7 @@ export function receivePlayers(json) {
 export function fetchPlayers() {
   return function (dispatch) {
     dispatch(requestPlayers());
-    return fetch('http://localhost:4000/api/players')
+    return fetch('/api/players')
       .then(
         response => response.json(),
         error => console.log('An error occured.', error)
