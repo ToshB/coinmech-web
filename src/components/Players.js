@@ -1,23 +1,32 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-const PlayerRow = ({player}) => (
-  <tr>
-    <td>{player.id}</td>
-    <td>{player.name}</td>
-    <td>{player.card}</td>
-    <td>{player.balance}</td>
-    <td>
-      <a className="button is-small is-pulled-right">
-        Edit
-      </a>
-    </td>
-  </tr>
-);
-
 
 class Players extends Component {
   render() {
+    const PlayerRow = ({player}) => {
+      const onEdit = () => this.props.onEditPlayer(player);
+      const onDelete = () => this.props.onDeletePlayer(player);
+      const onUpdateBalance = () => this.props.onUpdateBalance(player);
+      return (
+        <tr>
+          <td>{player.id}</td>
+          <td>{player.name}</td>
+          <td>{player.card}</td>
+          <td>{player.balance}</td>
+          <td>
+            <div className="is-pulled-right">
+              <button className="button is-small is-primary" onClick={onUpdateBalance}>Update Balance</button>
+              &nbsp;
+              <button className="button is-small" onClick={onEdit}>Edit</button>
+              &nbsp;
+              <button className="button is-small is-danger" onClick={onDelete}>Delete</button>
+            </div>
+          </td>
+        </tr>
+      )
+    };
+
     const playerRows = this.props.players.map(player => {
       return <PlayerRow key={player.id} player={player}/>
     });
@@ -57,6 +66,9 @@ class Players extends Component {
 
 Players.propTypes = {
   onAddPlayer: PropTypes.func.isRequired,
+  onEditPlayer: PropTypes.func.isRequired,
+  onDeletePlayer: PropTypes.func.isRequired,
+  onUpdateBalance: PropTypes.func.isRequired,
   players: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired

@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         isLoaded: true,
-        items: action.players
+        items: action.value
       };
     default:
       return state;

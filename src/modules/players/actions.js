@@ -12,7 +12,7 @@ export function requestPlayers() {
 export function receivePlayers(json) {
   return {
     type: RECEIVE_PLAYERS,
-    players: json.players
+    value: json.players
   }
 }
 
