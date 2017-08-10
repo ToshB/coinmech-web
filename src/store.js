@@ -8,7 +8,7 @@ import {createMatchEnhancer, Matcher} from 'found';
 
 const middleware = [
   thunkMiddleware,
-  createLogger()
+  createLogger({collapsed: true})
 ];
 
 const enhancers = [

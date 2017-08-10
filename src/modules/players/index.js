@@ -1,4 +1,7 @@
-import {REQUEST_PLAYERS, RECEIVE_PLAYERS} from "./actions"
+import {
+  REQUEST_PLAYERS,
+  RECEIVE_PLAYERS,
+} from "./actions"
 
 const initialState = {
   isFetching: false,
