@@ -2,40 +2,30 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './modules';
-import {Actions as FarceActions, createHistoryEnhancer, BrowserProtocol, queryMiddleware} from 'farce';
-import routeConfig from './routeConfig';
-import {createMatchEnhancer, Matcher} from 'found';
+import {routerMiddleware} from 'react-router-redux';
 
-const middleware = [
-  thunkMiddleware,
-  createLogger({collapsed: true})
-];
+export default history => {
 
-const enhancers = [
-  createHistoryEnhancer({
-    protocol: new BrowserProtocol(),
-    middlewares: [queryMiddleware]
-  }),
-  createMatchEnhancer(
-    new Matcher(routeConfig)
-  )
-];
+  const middleware = [
+    thunkMiddleware,
+    createLogger({collapsed: true}),
+    routerMiddleware(history)
+  ];
 
-if (process.env.NODE_ENV === 'development') {
-  const devToolsExtension = window.devToolsExtension;
-  if (typeof devToolsExtension === 'function') {
-    enhancers.push(devToolsExtension());
+  const enhancers = [];
+
+  if (process.env.NODE_ENV === 'development') {
+    const devToolsExtension = window.devToolsExtension;
+    if (typeof devToolsExtension === 'function') {
+      enhancers.push(devToolsExtension());
+    }
   }
+
+  return createStore(
+    rootReducer,
+    compose(
+      applyMiddleware(...middleware),
+      ...enhancers
+    )
+  );
 }
-
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(...middleware),
-    ...enhancers
-  )
-);
-
-store.dispatch(FarceActions.init());
-
-export default store;

@@ -2,24 +2,31 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import store from './store';
-import {createConnectedRouter, createRender, resolver} from 'found';
+import {ConnectedRouter} from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory';
+import createStore from './store';
+import App from './App';
 
+const history = createHistory();
+const store = createStore(history);
 
-const ConnectedRouter = createConnectedRouter({
-  render: createRender({
-    renderError: ({error}) => (
-      <div>
-        {error.status === 404 ? 'Not found' : 'Error'}
-      </div>
-    )
+function render(Component) {
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <Component/>
+      </ConnectedRouter>
+    </Provider>,
+
+    document.getElementById('root')
+  );
+}
+
+render(App);
+
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default;
+    render(NextApp);
   })
-});
-
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter resolver={resolver} matchContext={store}/>
-  </Provider>,
-
-  document.getElementById('root')
-);
+}

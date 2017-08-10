@@ -4,6 +4,7 @@ import {
 } from "./actions"
 
 const initialState = {
+  isLoaded: false,
   isFetching: false,
   items: []
 };
@@ -19,6 +20,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
+        isLoaded: true,
         items: action.players
       };
     default:

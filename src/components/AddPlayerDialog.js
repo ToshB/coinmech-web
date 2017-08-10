@@ -53,7 +53,7 @@ class AddPlayerDialog extends Component {
               <div className="field-body">
                 <div className="field">
                   <p className="control is-expanded has-icons-left">
-                    <input type="text" className="input" placeholder="000-000"
+                    <input type="text" className="input" placeholder="0000-000"
                            value={this.props.cardId}
                            onChange={this.props.onChange('cardId')}/>
                     <span className="icon is-small is-left">
@@ -65,7 +65,7 @@ class AddPlayerDialog extends Component {
             </div>
           </section>
           <footer className="modal-card-foot">
-            <button className="button is-success">Add</button>
+            <button className="button is-success" onClick={this.props.onSave}>Add</button>
             <button className="button" onClick={this.props.onAbort}>Cancel</button>
           </footer>
         </div>
@@ -75,11 +75,14 @@ class AddPlayerDialog extends Component {
 }
 
 AddPlayerDialog.propTypes = {
+  onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onAbort: PropTypes.func.isRequired,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  cardId: PropTypes.string
+  player: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    cardId: PropTypes.string
+  }).isRequired
 };
 
 export default AddPlayerDialog;
