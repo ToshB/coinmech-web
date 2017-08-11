@@ -9,7 +9,7 @@
     }
   },
   "headers": {
-    "/static/**": {
+    "/build/static/**": {
       "Cache-Control": "public, max-age=512000"
     }
   }
