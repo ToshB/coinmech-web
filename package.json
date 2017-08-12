@@ -16,6 +16,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.34",
+    "@types/moment": "^2.13.0",
     "@types/prop-types": "^15.5.1",
     "@types/react": "^16.0.1",
     "@types/react-redux": "^4.4.47",
@@ -25,6 +26,7 @@
     "classnames": "^2.2.5",
     "history": "^4.6.3",
     "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

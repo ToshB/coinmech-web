@@ -1,18 +1,28 @@
 import fetch from 'isomorphic-fetch';
+import {PLAYER_ADD_REQUESTED, PLAYER_EDIT_CLOSED, RECEIVE_PLAYERS, REQUEST_PLAYERS} from "../types";
 
-export const REQUEST_PLAYERS = 'REQUEST_PLAYERS';
-export const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
-
-export function requestPlayers() {
+function requestPlayers() {
   return {
     type: REQUEST_PLAYERS
   }
 }
 
-export function receivePlayers(json) {
+function receivePlayers(json) {
   return {
     type: RECEIVE_PLAYERS,
     value: json.players
+  }
+}
+
+export function closePlayerEdit() {
+  return {
+    type: PLAYER_EDIT_CLOSED
+  }
+}
+
+export function startAddingPlayer() {
+  return {
+    type: PLAYER_ADD_REQUESTED
   }
 }
 

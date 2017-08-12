@@ -6,8 +6,7 @@ import PlayerList from './PlayerList';
 import EditPlayerDialog from '../components/EditPlayerDialog';
 import DeletePlayerDialog from '../components/DeletePlayerDialog';
 import UpdateBalanceDialog from '../components/UpdateBalanceDialog';
-import {fetchPlayers} from "../modules/players/actions";
-import {startAddingPlayer} from "../modules/playerEdit/actions";
+import {fetchPlayers, startAddingPlayer} from "../modules/players/actions";
 
 class PlayersPage extends React.Component {
   componentDidMount() {
@@ -42,16 +41,20 @@ class PlayersPage extends React.Component {
 
 PlayersPage.propTypes = {
   isLoaded: PropTypes.bool.isRequired,
-  addPlayer: PropTypes.func.isRequired
+  fetchPlayers: PropTypes.func.isRequired,
+  addPlayer: PropTypes.func.isRequired,
+  isEditingPlayer: PropTypes.bool.isRequired,
+  isDeletingPlayer: PropTypes.bool.isRequired,
+  isUpdatingBalance: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({players, playerEdit}) => {
+const mapStateToProps = ({players}) => {
   return {
     isLoaded: players.isLoaded,
     players: players.items,
-    isEditingPlayer: playerEdit.isEditingPlayer,
-    isDeletingPlayer: playerEdit.isDeletingPlayer,
-    isUpdatingBalance: playerEdit.isUpdatingBalance
+    isEditingPlayer: players.isEditingPlayer,
+    isDeletingPlayer: players.isDeletingPlayer,
+    isUpdatingBalance: players.isUpdatingBalance
   }
 };
 

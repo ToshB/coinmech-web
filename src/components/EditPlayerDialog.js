@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import ModalDialog from "./ModalDialog";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {closePlayerEdit, updateProperty, savePlayer} from "../modules/playerEdit/actions";
+import {updateProperty, savePlayer} from "../modules/playerEdit/actions";
+import {closePlayerEdit} from "../modules/players/actions";
 
 class EditPlayerDialog extends React.Component {
   componentDidMount() {

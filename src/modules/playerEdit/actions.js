@@ -1,25 +1,10 @@
 import fetch from 'isomorphic-fetch';
-import {fetchPlayers} from "../players/actions";
-
-export const PLAYER_ADD_REQUESTED = 'PLAYER_ADD_REQUESTED';
-export const PLAYER_EDIT_REQUESTED = 'PLAYER_EDIT_REQUESTED';
-export const PLAYER_DELETE_REQUESTED = 'PLAYER_DELETE_REQUESTED';
-export const PLAYER_EDIT_CLOSED = 'PLAYER_EDIT_CLOSED';
-export const PLAYER_DELETE_CLOSED = 'PLAYER_DELETE_CLOSED';
-export const PLAYER_PROPERTY_UPDATED = 'PLAYER_PROPERTY_UPDATED';
-export const PLAYER_CREATED = 'PLAYER_CREATED';
-export const PLAYER_UPDATED = 'PLAYER_UPDATED';
-export const BALANCE_UPDATED = 'BALANCE_UPDATED';
-export const PLAYER_DELETED = 'PLAYER_DELETED';
-export const BALANCE_UPDATE_CLOSED = 'BALANCE_UPDATE_CLOSED';
-export const BALANCE_UPDATE_REQUESTED = 'BALANCE_UPDATE_REQUESTED';
-
-
-export function startAddingPlayer() {
-  return {
-    type: PLAYER_ADD_REQUESTED
-  }
-}
+import {closePlayerEdit, fetchPlayers} from "../players/actions";
+import {
+  BALANCE_UPDATE_CLOSED, BALANCE_UPDATE_REQUESTED, BALANCE_UPDATED, PLAYER_CREATED, PLAYER_DELETE_CLOSED,
+  PLAYER_DELETE_REQUESTED, PLAYER_DELETED,
+  PLAYER_EDIT_REQUESTED, PLAYER_PROPERTY_UPDATED, PLAYER_UPDATED
+} from "../types";
 
 export function startEditingPlayer(player) {
   return {
@@ -39,12 +24,6 @@ export function startUpdatingBalance(player) {
   return {
     type: BALANCE_UPDATE_REQUESTED,
     player
-  }
-}
-
-export function closePlayerEdit() {
-  return {
-    type: PLAYER_EDIT_CLOSED
   }
 }
 
