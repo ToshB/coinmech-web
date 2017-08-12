@@ -1,6 +1,6 @@
 import React from 'react';
 import App from './components/App';
-import Players from './containers/PlayersContainer';
+import Players from './containers/PlayersPage';
 import {fetchPlayers} from "./modules/players/actions";
 
 export default [

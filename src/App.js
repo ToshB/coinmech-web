@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './App.css';
 import 'bulma/css/bulma.css';
 import {NavLink, Route} from 'react-router-dom';
-import PlayersContainer from './containers/PlayersContainer'
+import PlayersPage from './components/PlayersPage'
 import cn from 'classnames';
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {menuExpanded: false};
@@ -42,7 +42,7 @@ class App extends Component {
           </div>
         </nav>
         <section className="section">
-          <Route path="/players" component={PlayersContainer}/>
+          <Route path="/players" component={PlayersPage}/>
         </section>
       </div>
     );

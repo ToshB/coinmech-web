@@ -1,7 +1,7 @@
 import {
   PLAYER_ADD_REQUESTED,
   PLAYER_EDIT_CLOSED,
-  PLAYER_EDITED, PLAYER_EDIT_REQUESTED, PLAYER_DELETE_REQUESTED, PLAYER_DELETE_CLOSED, BALANCE_UPDATE_CLOSED,
+  PLAYER_PROPERTY_UPDATED, PLAYER_EDIT_REQUESTED, PLAYER_DELETE_REQUESTED, PLAYER_DELETE_CLOSED, BALANCE_UPDATE_CLOSED,
   BALANCE_UPDATE_REQUESTED, BALANCE_UPDATED
 } from "./actions"
 
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         isEditingPlayer: false,
         player: null
       };
-    case PLAYER_EDITED:
+    case PLAYER_PROPERTY_UPDATED:
       return {
         ...state,
         player: {

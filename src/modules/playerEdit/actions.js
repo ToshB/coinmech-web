@@ -6,7 +6,7 @@ export const PLAYER_EDIT_REQUESTED = 'PLAYER_EDIT_REQUESTED';
 export const PLAYER_DELETE_REQUESTED = 'PLAYER_DELETE_REQUESTED';
 export const PLAYER_EDIT_CLOSED = 'PLAYER_EDIT_CLOSED';
 export const PLAYER_DELETE_CLOSED = 'PLAYER_DELETE_CLOSED';
-export const PLAYER_EDITED = 'PLAYER_EDITED';
+export const PLAYER_PROPERTY_UPDATED = 'PLAYER_PROPERTY_UPDATED';
 export const PLAYER_CREATED = 'PLAYER_CREATED';
 export const PLAYER_UPDATED = 'PLAYER_UPDATED';
 export const BALANCE_UPDATED = 'BALANCE_UPDATED';
@@ -61,7 +61,6 @@ export function closeBalanceUpdate() {
 }
 
 export function updateBalance(player, amount) {
-  console.log('update!', player);
   return dispatch => {
     return fetch(`/api/players/${player.id}/addFunds`, {
       method: 'POST',
@@ -129,9 +128,9 @@ export function savePlayer(player) {
   }
 }
 
-export function editPlayer(change) {
+export function updateProperty(change) {
   return {
     value: change,
-    type: PLAYER_EDITED
+    type: PLAYER_PROPERTY_UPDATED
   }
 }

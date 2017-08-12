@@ -2,13 +2,21 @@
   "name": "intern.oslopinball.no",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:4000",
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:4000/",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  },
   "engines": {
     "node": "8.2.1"
   },
   "dependencies": {},
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.34",
+    "@types/prop-types": "^15.5.1",
     "@types/react": "^16.0.1",
     "@types/react-redux": "^4.4.47",
     "babel-eslint": "^7.2.3",
