@@ -30,7 +30,7 @@ class PlayersPage extends React.Component {
             </div>
           </div>
         </div>
-        <PlayerList players={this.props.players}/>
+        <PlayerList/>
         {this.props.isEditingPlayer && <EditPlayerDialog/>}
         {this.props.isDeletingPlayer && <DeletePlayerDialog/>}
         {this.props.isUpdatingBalance && <UpdateBalanceDialog/>}
@@ -51,7 +51,6 @@ PlayersPage.propTypes = {
 const mapStateToProps = ({players}) => {
   return {
     isLoaded: players.isLoaded,
-    players: players.items,
     isEditingPlayer: players.isEditingPlayer,
     isDeletingPlayer: players.isDeletingPlayer,
     isUpdatingBalance: players.isUpdatingBalance

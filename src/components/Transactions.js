@@ -13,7 +13,6 @@ class TransactionsPage extends React.Component {
   }
 
   render() {
-    console.log('trans', this.props.transactions);
     return (
       <div className="container">
         <div className="level">
@@ -23,7 +22,7 @@ class TransactionsPage extends React.Component {
             </div>
           </div>
         </div>
-        <TransactionList transactions={this.props.transactions}/>
+        <TransactionList/>
       </div>
     );
   }
@@ -37,7 +36,6 @@ TransactionsPage.propTypes = {
 const mapStateToProps = ({transactions}) => {
   return {
     isLoaded: transactions.isLoaded,
-    transactions: transactions.items,
   }
 };
 
