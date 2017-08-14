@@ -11,6 +11,7 @@ class MachineRow extends React.Component {
     return (<tr>
         <td>{this.props.machine.id}</td>
         <td>{this.props.machine.name}</td>
+        <td>{this.props.machine.price}</td>
         <td>
           <div className="is-pulled-right">
             <button className="button is-small" onClick={onEdit}>Edit</button>

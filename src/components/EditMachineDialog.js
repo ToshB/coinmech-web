@@ -26,7 +26,6 @@ class EditMachineDialog extends React.Component {
             <button type="button" className="delete" onClick={this.props.close}/>
           </header>
           <section className="modal-card-body">
-
             <div className="field is-horizontal">
               <div className="field-label is-normal">
                 <label className="label">Name</label>
@@ -45,6 +44,25 @@ class EditMachineDialog extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">Name</label>
+              </div>
+              <div className="field-body">
+                <div className="field">
+                  <p className="control is-expanded has-icons-left">
+                    <input type="text" className="input" placeholder="Price"
+                           ref="nameInput"
+                           value={this.props.machine.price}
+                           onChange={updateProperty('price')}/>
+                    <span className="icon is-small is-left">
+                      <i className="fa fa-money"/>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
           </section>
           <footer className="modal-card-foot">
             <button type="submit" className="button is-success">{isEditing ? 'Save' : 'Add'}</button>

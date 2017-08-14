@@ -4,6 +4,7 @@ import playerEdit from './playerEdit';
 import machines from './machines';
 import machineEdit from './machineEdit';
 import transactions from './transactions';
+import user from './user';
 import {routerReducer} from 'react-router-redux';
 
 
@@ -13,5 +14,6 @@ export default combineReducers({
   machines,
   machineEdit,
   players,
-  playerEdit
+  playerEdit,
+  user
 });

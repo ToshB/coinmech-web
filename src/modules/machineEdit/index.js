@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
     case MACHINE_ADD_REQUESTED:
       return {
         ...state,
-        machine: {name: ''}
+        machine: {name: '', price: 10}
       };
     case MACHINE_EDIT_REQUESTED:
       return {

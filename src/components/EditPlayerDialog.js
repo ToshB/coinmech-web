@@ -26,7 +26,6 @@ class EditPlayerDialog extends React.Component {
             <button type="button" className="delete" onClick={this.props.close}/>
           </header>
           <section className="modal-card-body">
-
             <div className="field is-horizontal">
               <div className="field-label is-normal">
                 <label className="label">Name</label>
@@ -47,7 +46,7 @@ class EditPlayerDialog extends React.Component {
             </div>
             <div className="field is-horizontal">
               <div className="field-label is-normal">
-                <label className="label"/>
+                <label className="label">Email</label>
               </div>
               <div className="field-body">
                 <div className="field">

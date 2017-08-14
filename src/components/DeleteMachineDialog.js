@@ -15,7 +15,7 @@ class DeleteMachineDialog extends React.Component {
             <button type="button" className="delete" onClick={this.props.close}/>
           </header>
           <section className="modal-card-body">
-            This will delete the machine named {this.props.machine.name}
+            This will delete the machine named <strong>{this.props.machine.name}</strong>
           </section>
           <footer className="modal-card-foot">
             <button type="button" className="button is-danger" onClick={confirm}>Delete</button>

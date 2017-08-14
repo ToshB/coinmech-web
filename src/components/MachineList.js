@@ -15,6 +15,7 @@ class MachineList extends React.Component {
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Price</th>
           <th/>
         </tr>
         </thead>
