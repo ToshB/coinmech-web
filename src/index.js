@@ -6,6 +6,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createStore from './store';
 import App from './App';
+require('moment/locale/en-gb');
 
 const history = createHistory();
 const store = createStore(history);

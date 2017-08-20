@@ -12,8 +12,7 @@ class PlayerRow extends React.Component {
     return (<tr>
         <td>{this.props.player.id}</td>
         <td>{this.props.player.name}</td>
-        <td>{this.props.player.card}</td>
-        <td>{this.props.player.balance}</td>
+        <td>{this.props.player.card_id}</td>
         <td>
           <div className="is-pulled-right">
             <button className="button is-small is-primary" onClick={onUpdateBalance}>Update Balance</button>
@@ -34,7 +33,8 @@ PlayerRow.propTypes = {
   updateBalance: PropTypes.func.isRequired,
   player: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    card_id: PropTypes.string,
   })
 };
 

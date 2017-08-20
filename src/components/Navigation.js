@@ -31,12 +31,12 @@ class Navigation extends React.Component {
         </div>
         <div className={cn("navbar-menu", {'is-active': this.state.menuExpanded})}
              onClick={this.toggleMenu.bind(this)}>
-          {this.props.isAuthenticated && <div className="navbar-start">
+          <div className="navbar-start">
             <NavLink className="navbar-item" activeClassName="is-active" to="/players">Players</NavLink>
+            <NavLink className="navbar-item" activeClassName="is-active" to="/cards">Cards</NavLink>
             <NavLink className="navbar-item" activeClassName="is-active" to="/machines">Machines</NavLink>
             <NavLink className="navbar-item" activeClassName="is-active" to="/transactions">Transactions</NavLink>
           </div>
-          }
           <div className="navbar-end">
               <span className="navbar-item">
               <Link className="button" to="/login">LOG IN</Link>

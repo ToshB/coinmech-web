@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import players from './players';
+import cards from './cards';
 import playerEdit from './playerEdit';
 import machines from './machines';
 import machineEdit from './machineEdit';
@@ -14,6 +15,7 @@ export default combineReducers({
   machines,
   machineEdit,
   players,
+  cards,
   playerEdit,
   user
 });
