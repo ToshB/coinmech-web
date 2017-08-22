@@ -11,6 +11,7 @@ require('moment/locale/en-gb');
 const history = createHistory();
 const store = createStore(history);
 
+console.log('history', history);
 function render(Component) {
   ReactDOM.render(
     <Provider store={store}>

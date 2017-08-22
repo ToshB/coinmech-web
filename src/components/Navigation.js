@@ -2,6 +2,8 @@ import React from 'react';
 import {NavLink, Link} from 'react-router-dom';
 import cn from 'classnames';
 import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {logout} from "../modules/user/actions";
 
 class Navigation extends React.Component {
   constructor() {
@@ -31,15 +33,16 @@ class Navigation extends React.Component {
         </div>
         <div className={cn("navbar-menu", {'is-active': this.state.menuExpanded})}
              onClick={this.toggleMenu.bind(this)}>
-          <div className="navbar-start">
+          {this.props.isAuthenticated && <div className="navbar-start">
             <NavLink className="navbar-item" activeClassName="is-active" to="/players">Players</NavLink>
             <NavLink className="navbar-item" activeClassName="is-active" to="/cards">Cards</NavLink>
             <NavLink className="navbar-item" activeClassName="is-active" to="/machines">Machines</NavLink>
             <NavLink className="navbar-item" activeClassName="is-active" to="/transactions">Transactions</NavLink>
-          </div>
+          </div>}
           <div className="navbar-end">
               <span className="navbar-item">
-              <Link className="button" to="/login">LOG IN</Link>
+                {!this.props.isAuthenticated && <Link className="button" to="/login">LOG IN</Link>}
+                {this.props.isAuthenticated && <button className="button" onClick={this.props.logout}>LOG OUT</button>}
               </span>
           </div>
         </div>
@@ -51,12 +54,13 @@ class Navigation extends React.Component {
 const mapStateToProps = ({user}) => {
   return {
     isAuthenticated: user.isAuthenticated
-
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return bindActionCreators({
+    logout
+  }, dispatch);
 };
 
 export default connect(

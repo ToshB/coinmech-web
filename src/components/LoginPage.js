@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {login} from "../modules/user/actions";
+import cn from 'classnames';
 
 class LoginPage extends React.Component {
   componentDidMount() {
@@ -16,20 +17,24 @@ class LoginPage extends React.Component {
           <div className="column is-half">
             <form onSubmit={e => {
               e.preventDefault();
-              this.props.login(this.props.email, this.refs.passwordInput.value)
+              this.props.login(this.refs.usernameInput.value, this.refs.passwordInput.value)
             }}>
               <div className="field">
                 <label className="label">Email</label>
                 <p className="control">
-                  <input type="text" className="input" placeholder="Email" defaultValue={this.props.email}/>
+                  <input type="text" className="input" placeholder="Email" ref="usernameInput"
+                         defaultValue={this.props.username}/>
                 </p>
               </div>
               <div className="field">
                 <label className="label">Password</label>
                 <p className="control">
-                  <input type="password" className="input" placeholder="Password" ref="passwordInput"/>
+                  <input type="password" className={cn('input', {'is-danger': this.props.loginFailed})}
+                         placeholder="Password" ref="passwordInput"/>
                 </p>
+                {this.props.errorMessage && <p className="help is-danger">{this.props.errorMessage}</p>}
               </div>
+
 
               <div className="field">
                 <p className="control">
@@ -38,6 +43,7 @@ class LoginPage extends React.Component {
                   </button>
                 </p>
               </div>
+
             </form>
 
           </div>
@@ -49,14 +55,16 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  email: PropTypes.string,
-  isLoggingIn: PropTypes.bool.isRequired
+  username: PropTypes.string,
+  loginFailed: PropTypes.bool,
+  errorMessage: PropTypes.string
 };
 
 const mapStateToProps = ({user}) => {
   return {
-    email: user.loginEmail,
-    isLoggingIn: user.isLoggingIn
+    username: user.username,
+    loginFailed: user.loginFailed,
+    errorMessage: user.errorMessage
   }
 };
 

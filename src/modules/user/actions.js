@@ -1,8 +1,45 @@
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED} from "../types";
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS} from "../types";
+import { push, goBack } from 'react-router-redux'
+
+function requestLogout() {
+  return {
+    type: LOGOUT_REQUEST
+  };
+}
+
+function receiveLogout() {
+  return {
+    type: LOGOUT_SUCCESS
+  };
+}
+
+function requestLogin({username, password}) {
+  return {
+    type: LOGIN_REQUEST,
+    username,
+    password
+  };
+}
+
+function receiveLogin(user) {
+  return {
+    type: LOGIN_SUCCESS,
+    user
+  };
+}
+
+export function logout() {
+  return dispatch => {
+    dispatch(requestLogout());
+    localStorage.removeItem('access_token');
+    dispatch(receiveLogout());
+    dispatch(goBack());
+  }
+}
 
 export function login(username, password) {
   return dispatch => {
-    dispatch({type: LOGIN_REQUEST});
+    dispatch(requestLogin({username, password}));
     return fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({username, password}),
@@ -14,9 +51,13 @@ export function login(username, password) {
         if (!res.ok) {
           throw new Error('Login failed');
         }
-        return res;
+        return res.json();
       })
-      .then(() => dispatch({type: LOGIN_SUCCESS}))
-      .catch(e => dispatch({type: LOGIN_FAILED, username, error: e.message}));
+      .then(user => {
+        localStorage.setItem('access_token', user.token);
+        dispatch(receiveLogin(user));
+        dispatch(push('/players'));
+      })
+      .catch(e => dispatch({type: LOGIN_FAILED, username, message: e.message}));
   };
 }
