@@ -1,11 +1,12 @@
 import {LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS} from "../types";
 
+const token = localStorage.getItem('access_token');
 const initialState = {
   username: '',
   isFetching: false,
   loginFailed: false,
   errorMessage: null,
-  isAuthenticated: false
+  isAuthenticated: Boolean(token)
 };
 
 export default (state = initialState, action) => {
