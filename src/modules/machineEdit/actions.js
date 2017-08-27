@@ -41,7 +41,7 @@ export function addMachine(machine) {
 
 export function updateMachine(machine) {
   return dispatch => {
-    return fetch(`/api/machines/${machine.id}`, {
+    return fetch(`/api/machines/${machine._id}`, {
       method: 'PUT',
       body: JSON.stringify(machine),
       headers: {
@@ -52,9 +52,9 @@ export function updateMachine(machine) {
   };
 }
 
-export function deleteMachine({id}) {
+export function deleteMachine({_id}) {
   return dispatch => {
-    return fetch(`/api/machines/${id}`, {
+    return fetch(`/api/machines/${_id}`, {
       method: 'DELETE',
     })
       .then(dispatch({type: MACHINE_DELETED}))
@@ -65,7 +65,7 @@ export function deleteMachine({id}) {
 
 export function saveMachine(machine) {
   return dispatch => {
-    return Promise.resolve(machine.id)
+    return Promise.resolve(machine._id)
       .then(machineId => {
         if (machineId) {
           return updateMachine(machine);

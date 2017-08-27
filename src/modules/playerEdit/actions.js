@@ -5,6 +5,7 @@ import {
   PLAYER_DELETE_REQUESTED, PLAYER_DELETED,
   PLAYER_EDIT_REQUESTED, PLAYER_PROPERTY_UPDATED, PLAYER_UPDATED
 } from "../types";
+import {fetchCards} from "../cards/actions";
 
 export function startEditingPlayer(player) {
   return {
@@ -41,7 +42,7 @@ export function closeBalanceUpdate() {
 
 export function updateBalance(player, amount) {
   return dispatch => {
-    return fetch(`/api/players/${player.id}/addFunds`, {
+    return fetch(`/api/players/${player._id}/addFunds`, {
       method: 'POST',
       body: JSON.stringify({amount}),
       headers: {
@@ -69,20 +70,20 @@ export function addPlayer(player) {
 
 export function updatePlayer(player) {
   return dispatch => {
-    return fetch(`/api/players/${player.id}`, {
+    return fetch(`/api/players/${player._id}`, {
       method: 'PUT',
       body: JSON.stringify(player),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-      .then(dispatch({type: PLAYER_UPDATED}));
+      .then(dispatch({type: PLAYER_UPDATED, value: player}));
   };
 }
 
-export function deletePlayer({id}) {
+export function deletePlayer({_id}) {
   return dispatch => {
-    return fetch(`/api/players/${id}`, {
+    return fetch(`/api/players/${_id}`, {
       method: 'DELETE',
     })
       .then(dispatch({type: PLAYER_DELETED}))
@@ -93,7 +94,7 @@ export function deletePlayer({id}) {
 
 export function savePlayer(player) {
   return dispatch => {
-    return Promise.resolve(player.id)
+    return Promise.resolve(player._id)
       .then(playerId => {
         if (playerId) {
           return updatePlayer(player);
@@ -103,6 +104,7 @@ export function savePlayer(player) {
       })
       .then(action => dispatch(action))
       .then(() => dispatch(fetchPlayers()))
+      .then(() => dispatch(fetchCards()))
       .then(() => dispatch(closePlayerEdit()));
   }
 }

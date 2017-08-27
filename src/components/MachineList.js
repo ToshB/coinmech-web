@@ -6,7 +6,7 @@ import MachineRow from "./MachineRow";
 class MachineList extends React.Component {
   render() {
     const machineRows = this.props.machines.map(machine => {
-      return <MachineRow key={machine.id} machine={machine}/>
+      return <MachineRow key={machine._id} machine={machine}/>
     });
 
     return (
@@ -29,7 +29,7 @@ class MachineList extends React.Component {
 
 MachineList.propTypes = {
   machines: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired
+    _id: PropTypes.string.isRequired
   })).isRequired
 };
 

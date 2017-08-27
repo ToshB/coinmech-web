@@ -5,15 +5,23 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {updateProperty, savePlayer} from "../modules/playerEdit/actions";
 import {closePlayerEdit} from "../modules/players/actions";
+import {fetchCards} from '../modules/cards/actions';
 
 class EditPlayerDialog extends React.Component {
   componentDidMount() {
     this.refs.nameInput.focus();
+    if (!this.props.cardsLoaded) {
+      this.props.fetchCards();
+    }
   }
 
   render() {
     const updateProperty = (prop) => e => this.props.updateProperty({[prop]: e.target.value});
-    const isEditing = this.props.player.id;
+    const isEditing = this.props.player._id;
+
+    const cards = this.props.cards
+      .filter(c => !c.player_id || c._id === this.props.player.card_id)
+      .map(c => (<option key={c._id} value={c._id}>{c._id}</option>));
 
     return (
       <ModalDialog onClose={this.props.close}>
@@ -67,14 +75,17 @@ class EditPlayerDialog extends React.Component {
               </div>
               <div className="field-body">
                 <div className="field">
-                  <p className="control is-expanded has-icons-left">
-                    <input type="text" className="input" placeholder="0000-000"
-                           value={this.props.player.card_id}
-                           onChange={updateProperty('card_id')}/>
+                  <div className="control is-expanded has-icons-left select">
+                    <div className="select">
+                      <select defaultValue={this.props.player.card_id} onChange={updateProperty('card_id')}>
+                        <option key="no-card" value="">(No card)</option>
+                        {cards}
+                      </select>
+                    </div>
                     <span className="icon is-small is-left">
                       <i className="fa fa-credit-card"/>
                     </span>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -92,17 +103,24 @@ class EditPlayerDialog extends React.Component {
 EditPlayerDialog.propTypes = {
   save: PropTypes.func.isRequired,
   updateProperty: PropTypes.func.isRequired,
+  fetchCards: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   player: PropTypes.shape({
     name: PropTypes.string,
     email: PropTypes.string,
     card_id: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  cards: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    player_id: PropTypes.number
+  })).isRequired
 };
 
-const mapStateToProps = ({playerEdit}) => {
+const mapStateToProps = ({playerEdit, cards}) => {
   return {
-    player: playerEdit.player
+    player: playerEdit.player,
+    cardsLoaded: cards.isLoaded,
+    cards: cards.items
   }
 };
 
@@ -110,7 +128,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     save: savePlayer,
     updateProperty,
-    close: closePlayerEdit
+    close: closePlayerEdit,
+    fetchCards
   }, dispatch);
 };
 

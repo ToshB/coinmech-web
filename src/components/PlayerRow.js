@@ -10,7 +10,7 @@ class PlayerRow extends React.Component {
     const onDelete = () => this.props.deletePlayer(this.props.player);
     const onUpdateBalance = () => this.props.updateBalance(this.props.player);
     return (<tr>
-        <td>{this.props.player.id}</td>
+        <td>{this.props.player._id}</td>
         <td>{this.props.player.name}</td>
         <td>{this.props.player.card_id}</td>
         <td>
@@ -32,7 +32,7 @@ PlayerRow.propTypes = {
   deletePlayer: PropTypes.func.isRequired,
   updateBalance: PropTypes.func.isRequired,
   player: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     card_id: PropTypes.string,
   })

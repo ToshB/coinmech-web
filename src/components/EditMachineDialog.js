@@ -13,7 +13,7 @@ class EditMachineDialog extends React.Component {
 
   render() {
     const updateProperty = (prop) => e => this.props.updateProperty({[prop]: e.target.value});
-    const isEditing = this.props.machine.id;
+    const isEditing = this.props.machine._id;
 
     return (
       <ModalDialog onClose={this.props.close}>
@@ -52,7 +52,6 @@ class EditMachineDialog extends React.Component {
                 <div className="field">
                   <p className="control is-expanded has-icons-left">
                     <input type="text" className="input" placeholder="Price"
-                           ref="nameInput"
                            value={this.props.machine.price}
                            onChange={updateProperty('price')}/>
                     <span className="icon is-small is-left">

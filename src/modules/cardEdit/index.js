@@ -1,9 +1,9 @@
-import {CARD_EDIT_REQUESTED, CARD_EDIT_CLOSED, RECEIVE_CARDS} from "../types";
+import {
+  CARD_EDIT_REQUESTED, CARD_EDIT_CLOSED, CARD_PROPERTY_UPDATED
+} from "../types";
 
 const initialState = {
-  isLoaded: false,
-  isEditingCard: false,
-  items: []
+  card: null
 };
 
 export default (state = initialState, action) => {
@@ -11,19 +11,20 @@ export default (state = initialState, action) => {
     case CARD_EDIT_REQUESTED:
       return {
         ...state,
-        isEditingCard: true,
+        card: action.card
       };
     case CARD_EDIT_CLOSED:
       return {
         ...state,
-        isEditingCard: false
+        card: null
       };
-
-    case RECEIVE_CARDS:
+    case CARD_PROPERTY_UPDATED:
       return {
         ...state,
-        isLoaded: true,
-        items: action.value
+        card: {
+          ...state.card,
+          ...action.value
+        }
       };
     default:
       return state;

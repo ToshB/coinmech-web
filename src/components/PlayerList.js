@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 class PlayerList extends React.Component {
   render() {
     const playerRows = this.props.players.map(player => {
-      return <PlayerRow key={player.id} player={player}/>
+      return <PlayerRow key={player._id} player={player}/>
     });
 
     return (
@@ -28,7 +28,9 @@ class PlayerList extends React.Component {
 }
 
 PlayerList.propTypes = {
-  players: PropTypes.array.isRequired
+  players: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired
+  })).isRequired
 };
 
 const mapStateToProps = ({players}) => {
