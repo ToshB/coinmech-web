@@ -15,7 +15,7 @@ class PlayerRow extends React.Component {
         <td>{this.props.player.card_id}</td>
         <td>
           <div className="is-pulled-right">
-            <button className="button is-small is-primary" onClick={onUpdateBalance}>Update Balance</button>
+            <button className="button is-small is-primary" disabled onClick={onUpdateBalance}>Update Balance</button>
             &nbsp;
             <button className="button is-small" onClick={onEdit}>Edit</button>
             &nbsp;

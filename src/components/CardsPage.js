@@ -35,7 +35,8 @@ class CardsPage extends React.Component {
 }
 
 CardsPage.propTypes = {
-  isLoaded: PropTypes.bool.isRequired,
+  isCardsLoaded: PropTypes.bool.isRequired,
+  isPlayersLoaded: PropTypes.bool.isRequired,
   isEditingCard: PropTypes.bool.isRequired,
   fetchCards: PropTypes.func.isRequired
 };
