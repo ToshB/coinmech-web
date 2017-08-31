@@ -44,19 +44,32 @@ class EditMachineDialog extends React.Component {
                 </div>
               </div>
             </div>
+            {/*<div className="field">*/}
+              {/*<label className="label">Add Custom Amount</label>*/}
+              {/*<div className="field has-addons">*/}
+                {/*<p className="control has-icons-left">*/}
+                  {/*<input className="input" type="text" ref="amountInput" placeholder="Amount of money"/>*/}
+                  {/*<span className="icon is-small is-left">kr</span>*/}
+                {/*</p>*/}
+                {/*<p className="control">*/}
+                  {/*<button className="button is-primary" onClick={addCustomFunds}>*/}
+                    {/*Add*/}
+                  {/*</button>*/}
+                {/*</p>*/}
+              {/*</div>*/}
+            {/*</div>*/}
+
             <div className="field is-horizontal">
               <div className="field-label is-normal">
-                <label className="label">Name</label>
+                <label className="label">Price</label>
               </div>
               <div className="field-body">
-                <div className="field">
+                <div className="field has-addons">
                   <p className="control is-expanded has-icons-left">
                     <input type="text" className="input" placeholder="Price"
                            value={this.props.machine.price}
                            onChange={updateProperty('price')}/>
-                    <span className="icon is-small is-left">
-                      <i className="fa fa-money"/>
-                    </span>
+                    <span className="icon is-small is-left">kr</span>
                   </p>
                 </div>
               </div>

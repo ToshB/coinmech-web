@@ -26,7 +26,8 @@ export default (state = initialState, action) => {
     case RECEIVE_MACHINES:
       return {
         ...state,
-        items: action.value
+        items: action.value,
+        isLoaded: true
       };
     case MACHINE_DELETE_REQUESTED:
       return {

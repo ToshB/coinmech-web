@@ -10,7 +10,8 @@ export default (state = initialState, action) => {
     case RECEIVE_TRANSACTIONS:
       return {
         ...state,
-        items: action.value
+        items: action.value,
+        isLoaded: true
       };
     default:
       return state;

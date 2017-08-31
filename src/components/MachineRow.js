@@ -9,7 +9,7 @@ class MachineRow extends React.Component {
     const onEdit = () => this.props.editMachine(this.props.machine);
     const onDelete = () => this.props.deleteMachine(this.props.machine);
     return (<tr>
-        <td>{this.props.machine._id}</td>
+        {/*<td>{this.props.machine._id}</td>*/}
         <td>{this.props.machine.name}</td>
         <td>{this.props.machine.price}</td>
         <td>

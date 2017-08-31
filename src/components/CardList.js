@@ -12,8 +12,8 @@ class CardList extends React.Component {
       const editCard = () => this.props.editCard({card});
       const assignedPlayer = this.props.players.find(p => p._id === card.player_id);
 
-      if (card.player_id) {
-        return <button className="button is-small is-success" onClick={editCard}>{assignedPlayer.name}</button>;
+      if (assignedPlayer) {
+        return <button className="button is-small is-outlined is-success" onClick={editCard}>{assignedPlayer.name}</button>;
       } else {
         return <button className="button is-small" onClick={editCard}>Assign player</button>;
       }
@@ -22,7 +22,8 @@ class CardList extends React.Component {
     const CardRow = ({card}) => {
       return (
         <tr>
-          <td>{card._id}</td>
+          {/*<td>{card._id}</td>*/}
+          <td>{card.cardId}</td>
           <td><AssignPlayerLink card={card}/></td>
           <td>{moment(card.last_seen).format('LLL')}</td>
           <td>{card.balance}</td>
@@ -38,7 +39,8 @@ class CardList extends React.Component {
       <table className="table is-striped is-fullwidth">
         <thead>
         <tr>
-          <th>ID</th>
+          {/*<th>ID</th>*/}
+          <th>Tag</th>
           <th>Player</th>
           <th>Last Seen</th>
           <th>Balance</th>

@@ -13,7 +13,7 @@ class MachineList extends React.Component {
       <table className="table is-striped is-fullwidth">
         <thead>
         <tr>
-          <th>ID</th>
+          {/*<th>ID</th>*/}
           <th>Name</th>
           <th>Price</th>
           <th/>
