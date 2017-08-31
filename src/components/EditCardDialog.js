@@ -19,14 +19,14 @@ class EditCardDialog extends React.Component {
 
     const players = this.props.players
       .sort((p1, p2) => p1.name.toUpperCase() < p2.name.toUpperCase() ? -1 : 1)
-      .filter(p => !p.card_id || p._id === this.props.player_id)
+      .filter(p => !p.card_id || p._id === this.props.playerId)
       .map(p => (<option key={p._id} value={p._id}>{p.name}</option>));
 
     return (
       <ModalDialog onClose={this.props.close}>
         <form onSubmit={e => {
           e.preventDefault();
-          this.props.save({card_id: this.props.card_id, player_id: this.props.player_id})
+          this.props.save({card_id: this.props.card_id, playerId: this.props.playerId})
         }}>
           <header className="modal-card-head">
             <p className="modal-card-title">Assign card to player</p>
@@ -41,7 +41,7 @@ class EditCardDialog extends React.Component {
                 <div className="field">
                   <div className="control is-expanded has-icons-left select">
                     <div className="select">
-                      <select onChange={updateProperty('player_id')} ref="playerSelect" defaultValue={this.props.player_id}>
+                      <select onChange={updateProperty('player_id')} ref="playerSelect" defaultValue={this.props.playerId}>
                         <option key="no-card" value="">(Unassigned)</option>
                         {players}
                       </select>
@@ -80,7 +80,7 @@ const mapStateToProps = ({players, cardEdit}) => {
   return {
     playersLoaded: players.isLoaded,
     card_id: cardEdit.card._id,
-    player_id: cardEdit.card.player_id,
+    playerId: cardEdit.card.playerId,
     players: players.items
   }
 };

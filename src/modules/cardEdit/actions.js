@@ -25,11 +25,11 @@ export function updateProperty(change) {
   }
 }
 
-export function saveCard({card_id, player_id}) {
+export function saveCard({card_id, playerId}) {
   return dispatch => {
     return fetch(`/api/cards/${card_id}/assignToPlayer`, {
       method: 'POST',
-      body: JSON.stringify({player_id}),
+      body: JSON.stringify({playerId}),
       headers: {
         'Content-Type': 'application/json'
       }

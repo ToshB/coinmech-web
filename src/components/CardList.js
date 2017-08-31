@@ -10,7 +10,7 @@ class CardList extends React.Component {
   render() {
     const AssignPlayerLink = ({card}) => {
       const editCard = () => this.props.editCard({card});
-      const assignedPlayer = this.props.players.find(p => p._id === card.player_id);
+      const assignedPlayer = this.props.players.find(p => p._id === card.playerId);
 
       if (assignedPlayer) {
         return <button className="button is-small is-outlined is-success" onClick={editCard}>{assignedPlayer.name}</button>;
@@ -25,7 +25,7 @@ class CardList extends React.Component {
           {/*<td>{card._id}</td>*/}
           <td>{card.cardId}</td>
           <td><AssignPlayerLink card={card}/></td>
-          <td>{moment(card.last_seen).format('LLL')}</td>
+          <td>{moment(card.lastSeen).format('LLL')}</td>
           <td>{card.balance}</td>
         </tr>
       );
