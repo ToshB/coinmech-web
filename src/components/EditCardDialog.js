@@ -16,17 +16,21 @@ class EditCardDialog extends React.Component {
 
   render() {
     const updateProperty = (prop) => e => this.props.updateProperty({[prop]: e.target.value});
+    const sortByName = (p1, p2) => (p1.name || '').toUpperCase() < (p2.name || '').toUpperCase() ? -1 : 1;
 
-    const players = this.props.players
-      .sort((p1, p2) => p1.name.toUpperCase() < p2.name.toUpperCase() ? -1 : 1)
-      .filter(p => !p.card_id || p._id === this.props.playerId)
+    const playersWithoutCards = this.props.players.filter(p => !p.cardId).sort(sortByName)
       .map(p => (<option key={p._id} value={p._id}>{p.name}</option>));
+    const playersWithCards = this.props.players.filter(p => p.cardId).sort(sortByName)
+      .map(p => (<option key={p._id} value={p._id}>{p.name} ({p.cardId})</option>));
+
+    const currentPlayer = this.props.players.find(p => p.cardId === this.props.cardId);
+    const currentPlayerId = currentPlayer ? currentPlayer._id : '';
 
     return (
       <ModalDialog onClose={this.props.close}>
         <form onSubmit={e => {
           e.preventDefault();
-          this.props.save({card_id: this.props.card_id, playerId: this.props.playerId})
+          this.props.save({cardId: this.props.cardId, playerId: this.props.playerId})
         }}>
           <header className="modal-card-head">
             <p className="modal-card-title">Assign card to player</p>
@@ -41,9 +45,15 @@ class EditCardDialog extends React.Component {
                 <div className="field">
                   <div className="control is-expanded has-icons-left select">
                     <div className="select">
-                      <select onChange={updateProperty('player_id')} ref="playerSelect" defaultValue={this.props.playerId}>
+                      <select onChange={updateProperty('playerId')} ref="playerSelect"
+                              defaultValue={currentPlayerId}>
                         <option key="no-card" value="">(Unassigned)</option>
-                        {players}
+                        <optGroup label="Players without cards">
+                          {playersWithoutCards}
+                        </optGroup>
+                        <optGroup label="Players with cards">
+                          {playersWithCards}
+                        </optGroup>
                       </select>
                     </div>
                     <span className="icon is-small is-left">
@@ -69,7 +79,7 @@ EditCardDialog.propTypes = {
   updateProperty: PropTypes.func.isRequired,
   fetchPlayers: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
-  card_id: PropTypes.string.isRequired,
+  cardId: PropTypes.string.isRequired,
   players: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string
@@ -79,7 +89,7 @@ EditCardDialog.propTypes = {
 const mapStateToProps = ({players, cardEdit}) => {
   return {
     playersLoaded: players.isLoaded,
-    card_id: cardEdit.card._id,
+    cardId: cardEdit.card.cardId,
     playerId: cardEdit.card.playerId,
     players: players.items
   }

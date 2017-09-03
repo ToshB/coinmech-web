@@ -15,6 +15,7 @@ class PlayerList extends React.Component {
         <tr>
           <th>ID</th>
           <th>Player</th>
+          <th>Email</th>
           <th>Card ID</th>
           <th/>
         </tr>

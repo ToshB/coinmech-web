@@ -61,6 +61,23 @@ class EditPlayerDialog extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">CardId</label>
+              </div>
+              <div className="field-body">
+                <div className="field">
+                  <p className="control is-expanded has-icons-left">
+                    <input type="text" className="input" placeholder="Card ID"
+                           value={this.props.player.cardId}
+                           onChange={updateProperty('cardId')}/>
+                    <span className="icon is-small is-left">
+                      <i className="fa fa-envelope"/>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </section>
           <footer className="modal-card-foot">
             <button type="submit" className="button is-success">{isEditing ? 'Save' : 'Add'}</button>
@@ -79,7 +96,8 @@ EditPlayerDialog.propTypes = {
   close: PropTypes.func.isRequired,
   player: PropTypes.shape({
     name: PropTypes.string,
-    email: PropTypes.string
+    email: PropTypes.string,
+    cardId: PropTypes.string
   }).isRequired
 };
 

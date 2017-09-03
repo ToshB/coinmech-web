@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
     case PLAYER_ADD_REQUESTED:
       return {
         ...state,
-        player: {name: '', email: '', card_id: ''}
+        player: {name: '', email: '', cardId: ''}
       };
     case PLAYER_EDIT_REQUESTED:
       return {

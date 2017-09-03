@@ -1,10 +1,11 @@
 import {
   MACHINE_PROPERTY_UPDATED, MACHINE_EDIT_REQUESTED, MACHINE_DELETE_REQUESTED, MACHINE_DELETE_CLOSED,
-  MACHINE_EDIT_CLOSED, MACHINE_ADD_REQUESTED
+  MACHINE_EDIT_CLOSED, MACHINE_ADD_REQUESTED, DEVICE_STATUS_UPDATED
 } from "../types";
 
 const initialState = {
-  machine: null
+  machine: null,
+  devices: {}
 };
 
 export default (state = initialState, action) => {
@@ -12,7 +13,7 @@ export default (state = initialState, action) => {
     case MACHINE_ADD_REQUESTED:
       return {
         ...state,
-        machine: {name: '', price: 10}
+        machine: {name: '', price: 10, deviceId: ''}
       };
     case MACHINE_EDIT_REQUESTED:
       return {
@@ -41,6 +42,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         machine: null
+      };
+    case DEVICE_STATUS_UPDATED:
+      return {
+        ...state,
+        devices: {
+          ...state.devices,
+          [action.deviceId]: action.value
+        }
       };
     default:
       return state;

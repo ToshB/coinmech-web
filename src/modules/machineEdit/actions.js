@@ -3,7 +3,8 @@ import {closeMachineEdit, fetchMachines} from "../machines/actions";
 import {
   MACHINE_CREATED, MACHINE_DELETE_CLOSED,
   MACHINE_DELETE_REQUESTED, MACHINE_DELETED,
-  MACHINE_EDIT_REQUESTED, MACHINE_PROPERTY_UPDATED, MACHINE_UPDATED
+  MACHINE_EDIT_REQUESTED, MACHINE_PROPERTY_UPDATED, MACHINE_UPDATED,
+  DEVICE_STATUS_UPDATED
 } from "../types";
 
 export function startEditingMachine(machine) {
@@ -26,6 +27,26 @@ export function closeMachineDelete() {
   }
 }
 
+export function updateDeviceStatus(status) {
+  return {
+    type: DEVICE_STATUS_UPDATED,
+    deviceId: status.id,
+    value: {
+      name: status.name,
+      connected: status.connected,
+      lastSeen: status.last_heard && new Date(status.last_heard)
+    }
+  }
+}
+
+export function updateStatus(deviceId) {
+  return dispatch => {
+    return fetch(`/api/devices/${deviceId}`)
+      .then(res => res.json())
+      .then(data => dispatch(updateDeviceStatus(data)))
+  }
+}
+
 export function addMachine(machine) {
   return dispatch => {
     return fetch('/api/machines', {
@@ -35,7 +56,7 @@ export function addMachine(machine) {
         'Content-Type': 'application/json'
       }
     })
-      .then(dispatch({type: MACHINE_CREATED}));
+      .then(() => dispatch({type: MACHINE_CREATED}));
   }
 }
 
@@ -48,7 +69,7 @@ export function updateMachine(machine) {
         'Content-Type': 'application/json'
       }
     })
-      .then(dispatch({type: MACHINE_UPDATED}));
+      .then(() => dispatch({type: MACHINE_UPDATED}));
   };
 }
 
@@ -57,7 +78,7 @@ export function deleteMachine({_id}) {
     return fetch(`/api/machines/${_id}`, {
       method: 'DELETE',
     })
-      .then(dispatch({type: MACHINE_DELETED}))
+      .then(() => dispatch({type: MACHINE_DELETED}))
       .then(() => dispatch(fetchMachines()))
       .then(() => dispatch(closeMachineDelete()));
   }

@@ -74,6 +74,24 @@ class EditMachineDialog extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">Name</label>
+              </div>
+              <div className="field-body">
+                <div className="field">
+                  <p className="control is-expanded has-icons-left">
+                    <input type="text" className="input" placeholder="Device ID"
+                           ref="deviceId"
+                           value={this.props.machine.deviceId}
+                           onChange={updateProperty('deviceId')}/>
+                    <span className="icon is-small is-left">
+                      <i className="fa fa-microchip"/>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
 
           </section>
           <footer className="modal-card-foot">
@@ -91,7 +109,9 @@ EditMachineDialog.propTypes = {
   updateProperty: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   machine: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
+    price: PropTypes.number,
+    deviceId: PropTypes.string
   }).isRequired
 };
 
