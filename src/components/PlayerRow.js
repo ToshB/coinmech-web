@@ -13,14 +13,25 @@ class PlayerRow extends React.Component {
         <td>{this.props.player._id}</td>
         <td>{this.props.player.name}</td>
         <td>{this.props.player.email}</td>
-        <td>{this.props.player.cardId}</td>
+        <td className="is-hidden-touch">{this.props.player.cardId}</td>
         <td>
-          <div className="is-pulled-right">
-            <button className="button is-small is-primary" disabled onClick={onUpdateBalance}>Update Balance</button>
+          <div className="is-pulled-right" style={{whiteSpace: 'nowrap'}}>
+            <button className="button is-small has-text-primary is-hidden-desktop" disabled onClick={onUpdateBalance}>
+              <span className="icon"><i className="fa fa-dollar"/></span>
+            </button>
+            <button className="button is-small is-primary is-hidden-touch" disabled onClick={onUpdateBalance}>Add
+              Money
+            </button>
             &nbsp;
-            <button className="button is-small" onClick={onEdit}>Edit</button>
+            <button className="button is-small is-hidden-desktop" onClick={onEdit}>
+              <span className="icon"><i className="fa fa-edit"/></span>
+            </button>
+            <button className="button is-small is-hidden-touch" onClick={onEdit}>Edit</button>
             &nbsp;
-            <button className="button is-small is-danger" onClick={onDelete}>Delete</button>
+            <button className="button is-small has-text-danger is-hidden-desktop" onClick={onDelete}>
+              <span className="icon"><i className="fa fa-times-circle-o"/></span>
+            </button>
+            <button className="button is-small is-danger is-hidden-touch" onClick={onDelete}>Delete</button>
           </div>
         </td>
       </tr>

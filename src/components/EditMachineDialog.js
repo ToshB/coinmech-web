@@ -13,6 +13,7 @@ class EditMachineDialog extends React.Component {
 
   render() {
     const updateProperty = (prop) => e => this.props.updateProperty({[prop]: e.target.value});
+    const updateNumberProperty = (prop) => e => this.props.updateProperty({[prop]: parseInt(e.target.value, 10)});
     const isEditing = this.props.machine._id;
 
     return (
@@ -66,9 +67,9 @@ class EditMachineDialog extends React.Component {
               <div className="field-body">
                 <div className="field has-addons">
                   <p className="control is-expanded has-icons-left">
-                    <input type="text" className="input" placeholder="Price"
+                    <input type="number" className="input" placeholder="Price"
                            value={this.props.machine.price}
-                           onChange={updateProperty('price')}/>
+                           onChange={updateNumberProperty('price')}/>
                     <span className="icon is-small is-left">kr</span>
                   </p>
                 </div>

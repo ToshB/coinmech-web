@@ -16,7 +16,7 @@ class PlayerList extends React.Component {
           <th>ID</th>
           <th>Player</th>
           <th>Email</th>
-          <th>Card ID</th>
+          <th className="is-hidden-touch">Card ID</th>
           <th/>
         </tr>
         </thead>
