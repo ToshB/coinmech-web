@@ -12,6 +12,12 @@ class MachineRow extends React.Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.machine.deviceId && this.props.machine.deviceId !== newProps.machine.deviceId) {
+      this.props.updateStatus(newProps.machine.deviceId);
+    }
+  }
+
   render() {
     const onEdit = () => this.props.editMachine(this.props.machine);
     const onDelete = () => this.props.deleteMachine(this.props.machine);

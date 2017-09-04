@@ -27,15 +27,11 @@ export function closeMachineDelete() {
   }
 }
 
-export function updateDeviceStatus(status) {
+export function updateDeviceStatus(deviceId, status) {
   return {
     type: DEVICE_STATUS_UPDATED,
-    deviceId: status.id,
-    value: {
-      name: status.name,
-      connected: status.connected,
-      lastSeen: status.last_heard && new Date(status.last_heard)
-    }
+    deviceId,
+    value: status
   }
 }
 
@@ -43,7 +39,11 @@ export function updateStatus(deviceId) {
   return dispatch => {
     return fetch(`/api/devices/${deviceId}`)
       .then(res => res.json())
-      .then(data => dispatch(updateDeviceStatus(data)))
+      .then(data => dispatch(updateDeviceStatus(deviceId, {
+        name: data.name,
+        connected: data.connected,
+        lastSeen: data.last_heard && new Date(data.last_heard)
+      })))
   }
 }
 

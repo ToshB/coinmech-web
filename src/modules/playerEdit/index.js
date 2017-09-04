@@ -1,6 +1,6 @@
 import {
-  PLAYER_PROPERTY_UPDATED, PLAYER_EDIT_REQUESTED, PLAYER_DELETE_REQUESTED, PLAYER_DELETE_CLOSED, BALANCE_UPDATE_CLOSED,
-  BALANCE_UPDATE_REQUESTED, BALANCE_UPDATED, PLAYER_EDIT_CLOSED, PLAYER_ADD_REQUESTED
+  PLAYER_PROPERTY_UPDATED, PLAYER_EDIT_REQUESTED, PLAYER_DELETE_REQUESTED,
+  PLAYER_DELETE_CLOSED, PLAYER_EDIT_CLOSED, PLAYER_ADD_REQUESTED
 } from "../types";
 
 const initialState = {
@@ -41,21 +41,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         player: null
-      };
-    case BALANCE_UPDATE_REQUESTED:
-      return {
-        ...state,
-        player: action.player
-      };
-    case BALANCE_UPDATE_CLOSED:
-      return {
-        ...state,
-        player: null
-      };
-    case BALANCE_UPDATED:
-      return {
-        ...state,
-        player: action.player
       };
     default:
       return state;

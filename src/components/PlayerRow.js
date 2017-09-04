@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {startEditingPlayer, startDeletingPlayer, startUpdatingBalance} from '../modules/playerEdit/actions';
+import {startEditingPlayer, startDeletingPlayer} from '../modules/playerEdit/actions';
+import {startUpdatingBalance} from '../modules/cardEdit/actions';
 
 class PlayerRow extends React.Component {
   render() {
     const onEdit = () => this.props.editPlayer(this.props.player);
     const onDelete = () => this.props.deletePlayer(this.props.player);
-    const onUpdateBalance = () => this.props.updateBalance(this.props.player);
+    const onUpdateBalance = () => this.props.updateBalance(this.props.player.cardId);
     return (<tr>
         <td>{this.props.player._id}</td>
         <td>{this.props.player.name}</td>
@@ -16,13 +17,15 @@ class PlayerRow extends React.Component {
         <td className="is-hidden-touch">{this.props.player.cardId}</td>
         <td>
           <div className="is-pulled-right" style={{whiteSpace: 'nowrap'}}>
-            <button className="button is-small has-text-primary is-hidden-desktop" disabled onClick={onUpdateBalance}>
-              <span className="icon"><i className="fa fa-dollar"/></span>
-            </button>
-            <button className="button is-small is-primary is-hidden-touch" disabled onClick={onUpdateBalance}>Add
-              Money
-            </button>
-            &nbsp;
+            {this.props.player.cardId && <span>
+              <button className="button is-small has-text-primary is-hidden-desktop" onClick={onUpdateBalance}>
+                <span className="icon"><i className="fa fa-dollar"/></span>&nbsp;++
+              </button>
+              <button className="button is-small is-primary is-hidden-touch" onClick={onUpdateBalance}>Add
+                Money
+              </button>
+              &nbsp;
+            </span>}
             <button className="button is-small is-hidden-desktop" onClick={onEdit}>
               <span className="icon"><i className="fa fa-edit"/></span>
             </button>

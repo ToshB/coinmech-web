@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux';
 import PlayerList from './PlayerList';
 import EditPlayerDialog from '../components/EditPlayerDialog';
 import DeletePlayerDialog from '../components/DeletePlayerDialog';
-import UpdateBalanceDialog from '../components/UpdateBalanceDialog';
 import {fetchPlayers, startAddingPlayer} from "../modules/players/actions";
 
 class PlayersPage extends React.Component {
@@ -33,7 +32,6 @@ class PlayersPage extends React.Component {
         <PlayerList/>
         {this.props.isEditingPlayer && <EditPlayerDialog/>}
         {this.props.isDeletingPlayer && <DeletePlayerDialog/>}
-        {this.props.isUpdatingBalance && <UpdateBalanceDialog/>}
       </div>
     );
   }
@@ -44,16 +42,14 @@ PlayersPage.propTypes = {
   fetchPlayers: PropTypes.func.isRequired,
   addPlayer: PropTypes.func.isRequired,
   isEditingPlayer: PropTypes.bool.isRequired,
-  isDeletingPlayer: PropTypes.bool.isRequired,
-  isUpdatingBalance: PropTypes.bool.isRequired
+  isDeletingPlayer: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = ({players}) => {
   return {
     isLoaded: players.isLoaded,
     isEditingPlayer: players.isEditingPlayer,
-    isDeletingPlayer: players.isDeletingPlayer,
-    isUpdatingBalance: players.isUpdatingBalance
+    isDeletingPlayer: players.isDeletingPlayer
   }
 };
 

@@ -4,22 +4,26 @@ import {connect} from "react-redux";
 import moment from 'moment';
 import {startEditingCard} from "../modules/cardEdit/actions";
 import {bindActionCreators} from "redux";
-
+import {startUpdatingBalance} from '../modules/cardEdit/actions';
 
 class CardList extends React.Component {
   render() {
+
     const AssignPlayerLink = ({card}) => {
       const editCard = () => this.props.editCard({card});
       const assignedPlayer = this.props.players.find(p => p.cardId === card.cardId);
 
       if (assignedPlayer) {
-        return <button className="button is-small is-outlined is-success" onClick={editCard}>{assignedPlayer.name}</button>;
+        return <button className="button is-small is-outlined is-success"
+                       onClick={editCard}>{assignedPlayer.name}</button>;
       } else {
         return <button className="button is-small" onClick={editCard}>Assign player</button>;
       }
     };
 
     const CardRow = ({card}) => {
+      const onUpdateBalance = () => this.props.updateBalance(card.cardId);
+
       return (
         <tr>
           {/*<td>{card._id}</td>*/}
@@ -27,6 +31,14 @@ class CardList extends React.Component {
           <td><AssignPlayerLink card={card}/></td>
           <td>{moment(card.lastSeen).format('LLL')}</td>
           <td>{card.balance}</td>
+          <td>
+            <button className="button is-small has-text-primary is-hidden-desktop" onClick={onUpdateBalance}>
+              <span className="icon"><i className="fa fa-dollar"/></span>&nbsp;++
+            </button>
+            <button className="button is-small is-primary is-hidden-touch" onClick={onUpdateBalance}>Add
+              Money
+            </button>
+          </td>
         </tr>
       );
     };
@@ -44,6 +56,7 @@ class CardList extends React.Component {
           <th>Player</th>
           <th>Last Seen</th>
           <th>Balance</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -56,6 +69,7 @@ class CardList extends React.Component {
 
 CardList.propTypes = {
   editCard: PropTypes.func.isRequired,
+  updateBalance: PropTypes.func.isRequired,
   cards: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired
   })).isRequired,
@@ -74,7 +88,8 @@ const mapStateToProps = ({cards, players}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    editCard: startEditingCard
+    editCard: startEditingCard,
+    updateBalance: startUpdatingBalance
   }, dispatch);
 };
 

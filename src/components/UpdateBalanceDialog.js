@@ -2,15 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {closeBalanceUpdate, updateBalance} from "../modules/playerEdit/actions";
+import {closeBalanceUpdate, updateBalance} from "../modules/cardEdit/actions";
 import ModalDialog from "./ModalDialog";
 
 class UpdateBalanceDialog extends React.Component {
   render() {
-    const addFunds = amount => () => this.props.updateBalance(this.props.player, amount);
     const addCustomFunds = () => {
-      const amount = this.refs.amountInput.value;
-      this.props.updateBalance(this.props.player, amount)
+      const input = this.refs.amountInput;
+      const amount = parseInt(input.value, 10);
+      if (amount > 0) {
+        this.props.updateBalance(this.props.card.cardId, amount)
+        input.value = 0;
+      }
     };
 
     return (
@@ -21,24 +24,15 @@ class UpdateBalanceDialog extends React.Component {
         </header>
         <section className="modal-card-body">
           <div className="field">
-            <p><b>Player</b> {this.props.player.name}</p>
-            <p><b>Current Balance</b> {this.props.player.balance} kr</p>
+            <p><b>Card</b> {this.props.card.cardId}</p>
+            <p><b>Current Balance</b> {this.props.card.balance} kr</p>
           </div>
 
           <div className="field">
             <label className="label">Add Amount</label>
-            <button className="button is-primary" onClick={addFunds(100)}>100 kr</button>
-            &nbsp;
-            <button className="button is-primary" onClick={addFunds(200)}>200 kr</button>
-            &nbsp;
-            <button className="button is-primary" onClick={addFunds(500)}>500 kr</button>
-          </div>
-
-          <div className="field">
-            <label className="label">Add Custom Amount</label>
             <div className="field has-addons">
               <p className="control has-icons-left">
-                <input className="input" type="text" ref="amountInput" placeholder="Amount of money"/>
+                <input className="input" type="number" ref="amountInput" placeholder="Amount of money" min="0"/>
                 <span className="icon is-small is-left">kr</span>
               </p>
               <p className="control">
@@ -60,15 +54,15 @@ class UpdateBalanceDialog extends React.Component {
 UpdateBalanceDialog.propTypes = {
   updateBalance: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
-  player: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    balance: PropTypes.string.isRequired
+  card: PropTypes.shape({
+    cardId: PropTypes.string.isRequired,
+    balance: PropTypes.number.isRequired
   }).isRequired
 };
 
-const mapStateToProps = ({playerEdit}) => {
+const mapStateToProps = ({cardEdit}) => {
   return {
-    player: playerEdit.player
+    card: cardEdit.card
   }
 };
 

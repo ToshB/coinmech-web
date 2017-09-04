@@ -6,6 +6,7 @@ import TransactionsPage from './TransactionsPage';
 import MachinesPage from './MachinesPage';
 import LoginPage from './LoginPage';
 import {connect} from "react-redux";
+import UpdateBalanceDialog from '../components/UpdateBalanceDialog';
 
 class MainSection extends React.Component {
   render() {
@@ -30,14 +31,16 @@ class MainSection extends React.Component {
         <PrivateRoute path="/machines" component={MachinesPage}/>
         <PrivateRoute path="/transactions" component={TransactionsPage}/>
         <Route path="/login" component={LoginPage}/>
+        {this.props.isUpdatingBalance && <UpdateBalanceDialog/>}
       </section>
     );
   }
 }
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ({user, cardEdit}) => {
   return {
-    isAuthenticated: user.isAuthenticated
+    isAuthenticated: user.isAuthenticated,
+    isUpdatingBalance: cardEdit.isUpdatingBalance
   }
 };
 

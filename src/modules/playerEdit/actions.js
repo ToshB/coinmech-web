@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import {closePlayerEdit, fetchPlayers} from "../players/actions";
 import {
-  BALANCE_UPDATE_CLOSED, BALANCE_UPDATE_REQUESTED, BALANCE_UPDATED, PLAYER_CREATED, PLAYER_DELETE_CLOSED,
+  PLAYER_CREATED, PLAYER_DELETE_CLOSED,
   PLAYER_DELETE_REQUESTED, PLAYER_DELETED,
   PLAYER_EDIT_REQUESTED, PLAYER_PROPERTY_UPDATED, PLAYER_UPDATED
 } from "../types";
@@ -21,37 +21,10 @@ export function startDeletingPlayer(player) {
   }
 }
 
-export function startUpdatingBalance(player) {
-  return {
-    type: BALANCE_UPDATE_REQUESTED,
-    player
-  }
-}
 
 export function closePlayerDelete() {
   return {
     type: PLAYER_DELETE_CLOSED
-  }
-}
-
-export function closeBalanceUpdate() {
-  return {
-    type: BALANCE_UPDATE_CLOSED
-  }
-}
-
-export function updateBalance(player, amount) {
-  return dispatch => {
-    return fetch(`/api/players/${player._id}/addFunds`, {
-      method: 'POST',
-      body: JSON.stringify({amount}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(updatedPlayer => dispatch({type: BALANCE_UPDATED, player: updatedPlayer}))
-      .then(() => dispatch(fetchPlayers()));
   }
 }
 
