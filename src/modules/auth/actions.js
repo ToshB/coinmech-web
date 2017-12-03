@@ -2,7 +2,6 @@ import {LOGIN_SUCCESS, LOGOUT_SUCCESS, AUTH_INITIALIZED} from "../types";
 
 export function receiveLogin(user) {
   const idToken = user.getAuthResponse().id_token;
-  console.log('token', idToken);
   return dispatch => {
     return fetch(`/api/auth/tokensignin`, {
       method: 'POST',
