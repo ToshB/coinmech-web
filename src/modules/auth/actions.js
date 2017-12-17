@@ -1,45 +1,65 @@
-import {LOGIN_SUCCESS, LOGOUT_SUCCESS, AUTH_INITIALIZED} from "../types";
+import {LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE, USER_REQUEST, LOGOUT_SUCCESS} from "../types";
+import {push} from 'react-router-redux';
 
-export function receiveLogin(user) {
-  const idToken = user.getAuthResponse().id_token;
+export function initializeSession(token) {
   return dispatch => {
-    return fetch(`/api/auth/tokensignin`, {
+    dispatch({type: USER_REQUEST, token});
+    return fetch(`/api/users/info`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('invalid token');
+        }
+
+        return res.json();
+      })
+      .then(data => {
+        dispatch({type: LOGIN_SUCCESS, user: data.user, token: token});
+        dispatch(push('/'));
+      })
+      .catch(() => {
+        // delete window.sessionStorage.token;
+      });
+  }
+}
+
+export function login(email, password) {
+  return dispatch => {
+    dispatch({type: LOGIN_REQUEST, email, password: password.replace(/./g, '*')});
+    return fetch(`/api/users/login`, {
       method: 'POST',
-      body: JSON.stringify({idToken}),
+      body: JSON.stringify({email, password}),
       headers: {
         'Content-Type': 'application/json'
       }
     })
-      .then(card => dispatch({
-        type: LOGIN_SUCCESS,
-        user: {
-          name: user.getBasicProfile().getName()
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => {
+            throw new Error(data.error);
+          })
+        } else {
+          return res.json();
         }
-      }));
-  }
-
-}
-
-export function initializeGoogleAuth() {
-  return dispatch => {
-    window.gapi.load('auth2', () => {
-      window.gapi.auth2.init({
-        client_id: '30684995410-4uj4ce8413qoddkb4jfj7mvmtvr28817.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin'
       })
-        .then(() => {
-          dispatch({type: AUTH_INITIALIZED});
-        });
-    });
+      .then(data => {
+        dispatch({type: LOGIN_SUCCESS, user: data.user, token: data.token});
+        dispatch(push('/'));
+      })
+      .catch(err => {
+        dispatch({type: LOGIN_FAILURE, message: err.message});
+      })
   }
 }
 
 export function logout() {
   return dispatch => {
-    const auth2 = window.gapi.auth2.getAuthInstance();
-    auth2.signOut()
-      .then(() => dispatch({
-        type: LOGOUT_SUCCESS
-      }));
+    dispatch({type: LOGOUT_SUCCESS});
+    delete window.sessionStorage.token;
+    dispatch(push('/'));
   }
 }

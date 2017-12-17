@@ -1,31 +1,46 @@
-import {LOGIN_SUCCESS, LOGOUT_SUCCESS, AUTH_INITIALIZED} from "../types";
+import {LOGIN_SUCCESS, LOGOUT_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST} from "../types";
 
 const initialState = {
   user: null,
   errorMessage: null,
-  isInitialized: false,
-  isAuthenticated: false
+  isAuthenticating: false,
+  isAuthenticated: false,
+  token: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_INITIALIZED: {
+    case LOGIN_REQUEST:
       return {
-        ...state,
-        isInitialized: true
-      }
-    }
+        loginFailed: false,
+        errorMessage: null,
+        isAuthenticating: true
+      };
     case LOGIN_SUCCESS:
+      window.sessionStorage.token = action.token;
       return {
         ...state,
         loginFailed: false,
         errorMessage: null,
         isAuthenticated: true,
-        user: action.user
+        isAuthenticating: false,
+        user: action.user,
+        token: action.token
+      };
+
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        loginFailed: true,
+        isAuthenticated: false,
+        isAuthenticating: false,
+        errorMessage: action.message
       };
     case LOGOUT_SUCCESS: {
       return {
         ...state,
+        token: null,
+        user: null,
         isAuthenticated: false
       }
     }

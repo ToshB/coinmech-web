@@ -1,10 +1,9 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import cn from 'classnames';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {logout} from "../modules/auth/actions";
-import GoogleSignInComponent from "./GoogleSignInComponent";
 
 class Navigation extends React.Component {
   constructor() {
@@ -42,10 +41,10 @@ class Navigation extends React.Component {
           </div>}
           <div className="navbar-end">
               <span className="navbar-item">
-                <GoogleSignInComponent></GoogleSignInComponent>
+                {/*<GoogleSignInComponent></GoogleSignInComponent>*/}
                 {/*<div className="g-signin2" data-onsuccess="onSignIn"></div>*/}
-                {/*{!this.props.isAuthenticated && <Link className="button" to="/login">LOG IN</Link>}*/}
-                {/*{this.props.isAuthenticated && <button className="button" onClick={this.props.logout}>LOG OUT</button>}*/}
+                {!this.props.isAuthenticated && <Link className="button" to="/login">LOG IN</Link>}
+                {this.props.isAuthenticated && <button className="button" onClick={this.props.logout}>LOG OUT</button>}
               </span>
           </div>
         </div>

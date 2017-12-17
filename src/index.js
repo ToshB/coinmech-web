@@ -6,10 +6,16 @@ import {ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import createStore from './store';
 import App from './App';
+import {initializeSession} from "./modules/auth/actions";
 require('moment/locale/en-gb');
 
 const history = createHistory();
 const store = createStore(history);
+
+const existingToken = window.sessionStorage.token;
+if(existingToken){
+  store.dispatch(initializeSession(existingToken));
+}
 
 function render(Component) {
   ReactDOM.render(
