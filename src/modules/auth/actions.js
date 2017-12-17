@@ -24,7 +24,7 @@ export function initializeGoogleAuth() {
   return dispatch => {
     window.gapi.load('auth2', () => {
       window.gapi.auth2.init({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENTID,
+        client_id: '30684995410-4uj4ce8413qoddkb4jfj7mvmtvr28817.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin'
       })
         .then(() => {
